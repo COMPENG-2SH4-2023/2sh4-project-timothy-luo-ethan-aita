@@ -14,27 +14,24 @@ GameMechs::GameMechs()
     loseFlag = false;    
     boardSizeX = 30;
     boardSizeY = 15;
-
 }
 
 GameMechs::GameMechs(int boardX, int boardY)
 {
     //Initializes game parameters with board dimensions of (boardX x boardY) 
     input = 0;
-    boardSizeX = boardX;
-    boardSizeY = boardY;
+    score = 0;
     exitFlag = false;
     loseFlag = false;
-    score = 0;
+    boardSizeX = boardX;
+    boardSizeY = boardY;
 }
 
 // do you need a destructor?
-//GameMechs::~GameMechs()
-//{
+/*GameMechs::~GameMechs()
+{
 
-//}
-
-
+}*/
 
 bool GameMechs::getExitFlagStatus()
 {
@@ -57,10 +54,8 @@ char GameMechs::getInput()
         if (input == 27)
         {
             exitFlag = true;
-            break;
         }
     }
-
 
     return input;
 }
@@ -122,14 +117,5 @@ void GameMechs::incrementScore()
     */    
 }
 
-/*void GameMechs::generateFood(objPos blockOff)
-{
-
-}
-
-void GameMechs::getFoodPos(objPos &returnPos)
-{
-
-}*/
 
 

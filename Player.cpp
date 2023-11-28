@@ -3,8 +3,12 @@
 
 Player::Player(GameMechs* thisGMRef)
 {
+    // Creates the player symbol in the center of the gameboard
     mainGameMechsRef = thisGMRef;
     myDir = STOP;
+    playerPos.setObjPos(mainGameMechsRef -> getBoardSizeX() / 2, 
+                        mainGameMechsRef -> getBoardSizeY() / 2,
+                        '*');
 
     // more actions to be included
 }
@@ -18,15 +22,99 @@ Player::~Player()
 void Player::getPlayerPos(objPos &returnPos)
 {
     // return the reference to the playerPos arrray list
+    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
 }
 
 void Player::updatePlayerDir()
 {
-    // PPA3 input processing logic        
+
+    char input = mainGameMechsRef -> getInput();
+    // PPA3 input processing logic  
+    switch(input)
+    {
+        // If w is pressed, set player direction to up                      
+        case 'w':
+            if (myDir != UP && myDir != DOWN)
+            {
+                myDir = UP;
+            }
+            break;
+
+        // If s is pressed, set player direction to down                      
+        case 's':
+            if (myDir != UP && myDir != DOWN)
+            {
+                myDir = DOWN;
+            }
+            break;
+
+        // If a is pressed, set player direction to left                      
+        case 'a':
+            if (myDir != LEFT && myDir != RIGHT)
+            {
+                myDir = LEFT;
+            }
+            break;
+
+        // If d is pressed, set player direction to right                      
+        case 'd':
+            if (myDir != LEFT && myDir != RIGHT)
+            {
+                myDir = RIGHT;
+            }
+            break;
+
+        default:
+            break;
+    }  
 }
 
 void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
+
+    // If player direction is up, move the player symbol up
+    if (myDir == UP)
+    {
+        playerPos.y--;
+        // If the player reaches the border, wrap around
+        if (playerPos.y <= 0)
+        {
+            playerPos.y = mainGameMechsRef -> getBoardSizeX() - 2;
+        }   
+    }
+
+    // If player direction is down, move the player symbol down
+    else if (myDir == DOWN)
+    {
+        playerPos.y++;
+        // If the player reaches the border, wrap around       
+        if (playerPos.y == mainGameMechsRef -> getBoardSizeX() - 1)
+        {
+            playerPos.y = 1;
+        }
+    }
+
+    // If player direction is left, move the player symbol left
+    else if (myDir == LEFT)
+    {
+        playerPos.x--;
+        // If the player reaches the border, wrap around
+        if (playerPos.x <= 0)
+        {
+            playerPos.x = mainGameMechsRef -> getBoardSizeY() - 2;
+        }
+    }
+    
+    // If player direction is right, move the player symbol right
+    else if (myDir == RIGHT)
+    {
+        playerPos.x++;
+        // If the player reaches the border, wrap around
+        if (playerPos.x == mainGameMechsRef -> getBoardSizeY() - 1)
+        {
+            playerPos.x = 1;
+        }
+    }
 }
 
