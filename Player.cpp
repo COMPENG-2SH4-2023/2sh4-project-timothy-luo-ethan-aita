@@ -80,7 +80,7 @@ void Player::movePlayer()
         // If the player reaches the border, wrap around
         if (playerPos.y <= 0)
         {
-            playerPos.y = mainGameMechsRef -> getBoardSizeX() - 2;
+            playerPos.y = mainGameMechsRef -> getBoardSizeY() - 2;
         }   
     }
 
@@ -89,7 +89,7 @@ void Player::movePlayer()
     {
         playerPos.y++;
         // If the player reaches the border, wrap around       
-        if (playerPos.y == mainGameMechsRef -> getBoardSizeX() - 1)
+        if (playerPos.y == mainGameMechsRef -> getBoardSizeY() - 1)
         {
             playerPos.y = 1;
         }
@@ -102,7 +102,7 @@ void Player::movePlayer()
         // If the player reaches the border, wrap around
         if (playerPos.x <= 0)
         {
-            playerPos.x = mainGameMechsRef -> getBoardSizeY() - 2;
+            playerPos.x = mainGameMechsRef -> getBoardSizeX() - 2;
         }
     }
     
@@ -111,7 +111,7 @@ void Player::movePlayer()
     {
         playerPos.x++;
         // If the player reaches the border, wrap around
-        if (playerPos.x == mainGameMechsRef -> getBoardSizeY() - 1)
+        if (playerPos.x == mainGameMechsRef -> getBoardSizeX() - 1)
         {
             playerPos.x = 1;
         }
