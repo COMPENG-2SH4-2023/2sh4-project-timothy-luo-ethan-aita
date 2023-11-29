@@ -13,10 +13,10 @@ Food::Food()
 }
 
 //Destructor
-/*Food::~Food()
+Food::~Food()
 {
 
-}*/
+}
 
 //Food Generation
 void Food::generateFood(objPos blockOff)

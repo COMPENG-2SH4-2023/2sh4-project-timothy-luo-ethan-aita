@@ -22,7 +22,8 @@ Player::~Player()
 void Player::getPlayerPos(objPos &returnPos)
 {
     // return the reference to the playerPos arrray list
-    returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
+    //returnPos.setObjPos(playerPos.x, playerPos.y, playerPos.symbol);
+    returnPos = playerPos;
 }
 
 void Player::updatePlayerDir()
@@ -82,6 +83,8 @@ void Player::movePlayer()
             {
                 playerPos.y = mainGameMechsRef -> getBoardSizeY() - 2;
             }   
+            break;
+
         case DOWN:
             // If player direction is down, move the player symbol down
             playerPos.y++;
@@ -90,6 +93,8 @@ void Player::movePlayer()
             {
                 playerPos.y = 1;
             }
+            break;
+
         case LEFT:
             // If player direction is left, move the player symbol left
             playerPos.x--;
@@ -98,6 +103,8 @@ void Player::movePlayer()
             {
                 playerPos.x = mainGameMechsRef -> getBoardSizeX() - 2;
             }
+            break;
+
         case RIGHT:
             // If player direction is right, move the player symbol right
             playerPos.x++;
@@ -106,6 +113,7 @@ void Player::movePlayer()
             {
                 playerPos.x = 1;
             }
+            break;
     }
 }
 

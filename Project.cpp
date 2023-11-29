@@ -3,7 +3,7 @@
 #include "objPos.h"
 #include "GameMechs.h"
 #include "Player.h"
-
+#include "Food.h"
 
 using namespace std;
 
@@ -49,7 +49,9 @@ void Initialize(void)
     myGM = new GameMechs(30, 15);
     myPlayer = new Player(myGM);
     myFood = new Food();
-    myFood -> generateFood(myPlayer -> getPlayerPos());
+    objPos tempPos;
+    myPlayer -> getPlayerPos(tempPos);
+    myFood -> generateFood(tempPos);
 }
 
 void GetInput(void)
