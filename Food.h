@@ -7,15 +7,16 @@
 
 using namespace std;
 
-class Food : public GameMechs
+class Food
 {
     private:
         objPos foodPos;
         
         // objPosArrayList* foodBucket;
+        GameMechs* foodGameMechsRef;
 
     public:
-        Food();
+        Food(GameMechs* thisGM);
         ~Food();
         void generateFood(objPos blockOff);
         void getFoodPos(objPos &returnPos);
