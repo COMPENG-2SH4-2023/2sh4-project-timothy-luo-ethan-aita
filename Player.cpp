@@ -74,6 +74,7 @@ void Player::movePlayer()
     // PPA3 Finite State Machine logic
     switch(myDir)
     {
+<<<<<<< HEAD
         // If player direction is up, move the player symbol up
         case UP:
             playerPos.y--;
@@ -104,6 +105,45 @@ void Player::movePlayer()
             // If the player reaches the border, wrap around
             if (playerPos.x == mainGameMechsRef -> getBoardSizeY() - 1)
             {
+=======
+        playerPos.y--;
+        // If the player reaches the border, wrap around
+        if (playerPos.y <= 0)
+        {
+            playerPos.y = mainGameMechsRef -> getBoardSizeY() - 2;
+        }   
+    }
+
+    // If player direction is down, move the player symbol down
+    else if (myDir == DOWN)
+    {
+        playerPos.y++;
+        // If the player reaches the border, wrap around       
+        if (playerPos.y == mainGameMechsRef -> getBoardSizeY() - 1)
+        {
+            playerPos.y = 1;
+        }
+    }
+
+    // If player direction is left, move the player symbol left
+    else if (myDir == LEFT)
+    {
+        playerPos.x--;
+        // If the player reaches the border, wrap around
+        if (playerPos.x <= 0)
+        {
+            playerPos.x = mainGameMechsRef -> getBoardSizeX() - 2;
+        }
+    }
+    
+    // If player direction is right, move the player symbol right
+    else if (myDir == RIGHT)
+    {
+        playerPos.x++;
+        // If the player reaches the border, wrap around
+        if (playerPos.x == mainGameMechsRef -> getBoardSizeX() - 1)
+        {
+>>>>>>> 10f13b07612a674288cafdb73befeb71b5bba232
             playerPos.x = 1;
             }
     }
