@@ -11,6 +11,7 @@ using namespace std;
 
 GameMechs* myGM;
 Player* myPlayer;
+Food* myFood;
 
 void Initialize(void);
 void GetInput(void);
@@ -47,6 +48,8 @@ void Initialize(void)
     // Make game board size with dimensions 30x15
     myGM = new GameMechs(30, 15);
     myPlayer = new Player(myGM);
+    myFood = new Food();
+    myFood -> generateFood(myPlayer -> getPlayerPos());
 }
 
 void GetInput(void)
@@ -68,11 +71,11 @@ void DrawScreen(void)
     objPos tempPos;
     myPlayer -> getPlayerPos(tempPos);
 
-    for(int i = 0; i < myGM -> getBoardSizeX(); i++)
+    for(int i = 0; i < myGM -> getBoardSizeY(); i++)
     {
-        for(int j = 0; j < myGM -> getBoardSizeY(); j++)
+        for(int j = 0; j < myGM -> getBoardSizeX(); j++)
         {
-            if (i == 0 || i == myGM -> getBoardSizeX() - 1 || j == 0 || j == myGM -> getBoardSizeY() - 1)
+            if (i == 0 || i == myGM -> getBoardSizeY() - 1 || j == 0 || j == myGM -> getBoardSizeX() - 1)
             {
                 MacUILib_printf("%c", '#');
             }
@@ -110,4 +113,5 @@ void CleanUp(void)
 
     delete myGM;
     delete myPlayer;
+    delete myFood;
 }

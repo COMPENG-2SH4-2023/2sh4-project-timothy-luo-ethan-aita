@@ -5,7 +5,7 @@
 
 using namespace std;
 
-//Constructor
+//Default Constructor
 Food::Food()
 {
     // Initialize foodPos outside board so it isn't displayed
