@@ -7,10 +7,12 @@
 
 using namespace std;
 
-class Food
+class Food : public GameMechs
 {
     private:
         objPos foodPos;
+        
+        // objPosArrayList* foodBucket;
 
     public:
         Food();
