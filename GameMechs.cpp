@@ -84,7 +84,7 @@ void GameMechs::setExitTrue()
     exitFlag = true;
 }
 
-void GameMechs::setLoseFLag()
+void GameMechs::setLoseFlag()
 {
     // Sets loseFlag to true
     loseFlag = true;

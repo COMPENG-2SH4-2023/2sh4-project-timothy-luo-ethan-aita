@@ -1,11 +1,15 @@
 #include <cstdlib>
 #include <time.h>
-
+//
+#ifndef FOOD_H
+#define FOOD_H
+//
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include "GameMechs.h"
 
 using namespace std;
+
 
 class Food
 {
@@ -18,6 +22,9 @@ class Food
     public:
         Food(GameMechs* thisGM);
         ~Food();
-        void generateFood(objPos blockOff);
+        //void generateFood(objPos blockOff); //  upgrade
+        void generateFood(objPosArrayList*); // upgrade
         void getFoodPos(objPos &returnPos);
 };
+
+#endif

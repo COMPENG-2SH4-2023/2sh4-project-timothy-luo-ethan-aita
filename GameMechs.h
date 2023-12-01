@@ -34,7 +34,7 @@ class GameMechs
         bool getExitFlagStatus();
         void setExitTrue();
         bool getLoseFlagStatus();
-        void setLoseFLag();
+        void setLoseFlag();
 
         int getScore();
         void incrementScore();
@@ -45,6 +45,17 @@ class GameMechs
 
         int getBoardSizeX();
         int getBoardSizeY();
+
+        // void generatefood(//objPos blockOff); // upgrade this
+
+        // need to accept the player body array list
+        // go through each array list element to make sure they are all
+        // blocked off from random food generation
+
+
+
+        // void getFoodPos(objPos &returnPos);
+
       
 };
 

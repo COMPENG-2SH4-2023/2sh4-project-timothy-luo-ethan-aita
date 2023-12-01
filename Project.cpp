@@ -2,6 +2,7 @@
 #include "MacUILib.h"
 #include "objPos.h"
 #include "GameMechs.h"
+#include "objPosArrayList.h"
 #include "Player.h"
 #include "Food.h"
 
@@ -47,11 +48,11 @@ void Initialize(void)
 
     // Make game board size with dimensions 30x15
     myGM = new GameMechs(30, 15);
-    myPlayer = new Player(myGM);
     myFood = new Food(myGM);
-    objPos tempPos;
-    myPlayer -> getPlayerPos(tempPos);
-    myFood -> generateFood(tempPos);
+    myPlayer = new Player(myGM, myFood);
+    objPosArrayList* playerBody = myPlayer->getPlayerPos();
+    
+    myFood->generateFood(playerBody); // how do I turn this into array list operation?
 }
 
 void GetInput(void)
@@ -64,33 +65,48 @@ void RunLogic(void)
 
     myPlayer -> updatePlayerDir();
     myPlayer -> movePlayer();
-    myGM -> clearInput();
+    myGM -> clearInput();  
 }
 
 void DrawScreen(void)
 {
     MacUILib_clearScreen();   
 
-    objPos tempPos;
-    myPlayer -> getPlayerPos(tempPos);
-    objPos tempFood;
-    myFood -> getFoodPos(tempFood);
+    bool drawn;
+
+    objPosArrayList* playerBody = myPlayer->getPlayerPos();
+    objPos bodySeg; // declaring body segments
+
+    objPos foodItemPos; // the current item food Pos
+    myFood->getFoodPos(foodItemPos);
 
     for(int i = 0; i < myGM -> getBoardSizeY(); i++)
     {
         for(int j = 0; j < myGM -> getBoardSizeX(); j++)
-        {
+        {   
+            drawn = false;
+            // iterate through every element in the array list
+            for(int k = 0; k < playerBody->getSize(); k++)
+            {
+                playerBody->getElement(bodySeg, k); // accessing body segments
+                if(bodySeg.x == j && bodySeg.y == i)
+                {
+                    MacUILib_printf("%c", bodySeg.symbol);
+                    drawn = true;
+                    break;
+                }
+            }
+
+            if(drawn) continue; // don't draw anything below if player body was drawn
+
+            // draw border
             if (i == 0 || i == myGM -> getBoardSizeY() - 1 || j == 0 || j == myGM -> getBoardSizeX() - 1)
             {
                 MacUILib_printf("%c", '#');
             }
-            else if (i == tempPos.y && j == tempPos.x)
+            else if (i == foodItemPos.y && j == foodItemPos.x)
             {
-                MacUILib_printf("%c", tempPos.symbol);
-            }
-            else if (i == tempFood.y && j == tempFood.x)
-            {
-                MacUILib_printf("%c", tempFood.symbol);
+                MacUILib_printf("%c", foodItemPos.symbol);
             }
             else
             {
@@ -100,13 +116,32 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
 
-    MacUILib_printf("BoardSize: %dx%d, Score: %d, Player Position: <%d, %d> + %c\n",  
-                    myGM -> getBoardSizeX(),
-                    myGM -> getBoardSizeY(),
-                    myGM -> getScore(),
-                    tempPos.x, tempPos.y, tempPos.symbol); 
+    MacUILib_printf("BoardSize: %dx%d, Score: %d", myGM -> getBoardSizeX(), myGM -> getBoardSizeY(),
+myGM -> getScore()); 
+//change tempPos to temp Body
+MacUILib_printf("\nPlayer Positions:");
+for(int l = 0; l < playerBody->getSize(); l++)
+{
+    playerBody->getElement(bodySeg, l);
+    MacUILib_printf("<%d, %d> ", bodySeg.x, bodySeg.y);
+}
+MacUILib_printf("\nFood Pos: <%d, %d> \n", foodItemPos.x, foodItemPos.y);
+
+if(myGM->getLoseFlagStatus())
+{
+    MacUILib_printf("You lose!\n");
+} 
+
+if(!myGM->getLoseFlagStatus() && myGM->getExitFlagStatus())
+{
+    MacUILib_printf("Game Ended.\n");
+}
 
 }
+
+//MacUILib_printf("%s\n", myGM->getExitFlagStatus());
+//MacUILib_printf("%s\n", myGM->getLoseFlagStatus());
+
 
 void LoopDelay(void)
 {
@@ -116,7 +151,7 @@ void LoopDelay(void)
 
 void CleanUp(void)
 {
-    MacUILib_clearScreen();    
+    //MacUILib_clearScreen();    
   
     MacUILib_uninit();
 
