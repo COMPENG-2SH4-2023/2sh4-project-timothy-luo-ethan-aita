@@ -74,10 +74,10 @@ void DrawScreen(void)
     bool drawn, foodDrawn;
 
     objPosArrayList* playerBody = myPlayer -> getPlayerPos();
-    objPos bodySeg; // declaring body segments
+    objPos bodySeg; // Declaring body segments
 
     objPosArrayList* foodBucket = myFood -> getFoodBucket();
-    objPos foodBucketPos; // the current item food Pos
+    objPos foodBucketPos; // Current item food position
 
     for(int i = 0; i < myGM -> getBoardSizeY(); i++)
     {
@@ -127,8 +127,7 @@ void DrawScreen(void)
     }
 
     // Print the board size and game score
-    MacUILib_printf("BoardSize: %dx%d, Score: %d", myGM -> getBoardSizeX(), myGM -> getBoardSizeY(),
-    myGM -> getScore()); 
+    MacUILib_printf("BoardSize: %dx%d, Score: %d", myGM -> getBoardSizeX(), myGM -> getBoardSizeY(), myGM -> getScore()); 
 
     // Print the coords of the snake body
     MacUILib_printf("\nPlayer Positions: ");
@@ -156,15 +155,15 @@ void DrawScreen(void)
 
     if(myGM->getLoseFlagStatus())
     {   
-        MacUILib_printf("You lose! Your final score is %d.\n", myGM->getScore());
+        MacUILib_printf("You lose! Your final score is %d.\n", myGM -> getScore());
     } 
 
-    if(!myGM->getLoseFlagStatus() && !myPlayer->arrayMaxxed && myGM->getExitFlagStatus())
+    if(!myGM -> getLoseFlagStatus() && !myPlayer->arrayMaxxed && myGM -> getExitFlagStatus())
     {
         MacUILib_printf("Game Ended.\n");
     }
 
-    if(myPlayer->arrayMaxxed && myGM->getExitFlagStatus())
+    if(myPlayer -> arrayMaxxed && myGM -> getExitFlagStatus())
     {
         MacUILib_printf("TERMINATION ERROR: Array list has reached maximum capacity.\n");
     }
