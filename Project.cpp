@@ -52,7 +52,7 @@ void Initialize(void)
     myPlayer = new Player(myGM, myFood);
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     
-    myFood->generateFood(playerBody); // how do I turn this into array list operation?
+    myFood->generateFood(playerBody); 
 }
 
 void GetInput(void)
@@ -77,14 +77,13 @@ void DrawScreen(void)
 
     objPosArrayList* foodBucket = myFood -> getFoodBucket();
     objPos foodBucketPos; // the current item food Pos
-    //myFood->getFoodPos(foodBucketPos);
 
     for(int i = 0; i < myGM -> getBoardSizeY(); i++)
     {
         for(int j = 0; j < myGM -> getBoardSizeX(); j++)
         {   
             drawn = false;
-            // iterate through every element in the array list
+            // Iterate through every element in the array list
             for(int k = 0; k < playerBody -> getSize(); k++)
             {
                 playerBody -> getElement(bodySeg, k); // accessing body segments
@@ -97,8 +96,10 @@ void DrawScreen(void)
             }
 
             foodDrawn = false;
+            // Iterate through every element of the food bucket and draw them
             for(int h = 0; h < foodBucket -> getSize(); h++)
             {
+                // Access the foodbucket coords
                 foodBucket -> getElement(foodBucketPos, h);
                 if (foodBucketPos.x == j && foodBucketPos.y == i)
                 {
@@ -115,6 +116,7 @@ void DrawScreen(void)
             {
                 MacUILib_printf("%c", '#');
             }
+            // Empty spaces
             else
             {
                 MacUILib_printf("%c", ' ');
@@ -123,10 +125,11 @@ void DrawScreen(void)
         MacUILib_printf("\n");
     }
 
+    // Print the board size and game score
     MacUILib_printf("BoardSize: %dx%d, Score: %d", myGM -> getBoardSizeX(), myGM -> getBoardSizeY(),
     myGM -> getScore()); 
 
-    //change tempPos to temp Body
+    // Print the coords of the snake body
     MacUILib_printf("\nPlayer Positions: ");
     for(int l = 0; l < playerBody -> getSize(); l++)
     {
@@ -134,6 +137,7 @@ void DrawScreen(void)
         MacUILib_printf("<%d, %d> ", bodySeg.x, bodySeg.y);
     }
 
+    // Print the coords of the food
     MacUILib_printf("\nFood Bucket: ");
     for(int l = 0; l < foodBucket -> getSize(); l++)
     {
@@ -143,6 +147,7 @@ void DrawScreen(void)
 
     MacUILib_printf("\n");
 
+    // Game end conditions below
     if(myGM->getExitFlagStatus() )
     {
         MacUILib_clearScreen();
@@ -163,9 +168,6 @@ void DrawScreen(void)
         MacUILib_printf("TERMINATION ERROR: Array list has reached maximum capacity.\n");
     }
 }
-
-//MacUILib_printf("%s\n", myGM->getExitFlagStatus());
-//MacUILib_printf("%s\n", myGM->getLoseFlagStatus());
 
 
 void LoopDelay(void)

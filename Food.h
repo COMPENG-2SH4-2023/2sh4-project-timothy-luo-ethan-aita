@@ -4,6 +4,7 @@
 #ifndef FOOD_H
 #define FOOD_H
 //
+#define MAX_FOOD_CAP 3
 #include "objPos.h"
 #include "objPosArrayList.h"
 #include "GameMechs.h"
@@ -18,13 +19,11 @@ class Food
         
         objPosArrayList* foodBucket;
         GameMechs* foodGameMechsRef;
-        //int bucketSize;
 
     public:
         Food(GameMechs* thisGM);
         ~Food();
-        //void generateFood(objPos blockOff); //  upgrade
-        void generateFood(objPosArrayList* blockOff); // upgrade
+        void generateFood(objPosArrayList* blockOff);
         void getFoodPos(objPos &returnPos);
         objPosArrayList* getFoodBucket();
 };

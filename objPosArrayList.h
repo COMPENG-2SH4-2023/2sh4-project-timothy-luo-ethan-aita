@@ -4,6 +4,8 @@
 #define ARRAY_MAX_CAP 256 // change this to a smaller number to test for error handling
 
 #include "objPos.h"
+#include "MacUILib.h"
+
 
 class objPosArrayList
 {

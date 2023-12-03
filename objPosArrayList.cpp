@@ -1,4 +1,5 @@
 #include "objPosArrayList.h"
+#include "MacUILib.h"
 
 // Paste your CUTE Tested implementation here.
 // Paste your CUTE Tested implementation here.
@@ -29,7 +30,8 @@ void objPosArrayList::insertHead(objPos thisPos)
 {
     if (listSize == arrayCapacity)
     {
-
+        MacUILib_printf("The array is full");
+        return;
     }
 
     for(int i = listSize; i > 0; i--)
@@ -47,7 +49,8 @@ void objPosArrayList::insertTail(objPos thisPos)
 {
     if (listSize == arrayCapacity)
     {
-
+        MacUILib_printf("The array is full");
+        return;
     }
 
     aList[listSize].setObjPos(thisPos);

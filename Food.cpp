@@ -9,7 +9,7 @@ using namespace std;
 Food::Food(GameMechs* thisGM)
 {
     foodGameMechsRef = thisGM;
-    foodBucket = new objPosArrayList[3];
+    foodBucket = new objPosArrayList[MAX_FOOD_CAP];
     srand(time(NULL));
 }
 
@@ -22,27 +22,32 @@ Food::~Food()
 //Food Generation
 void Food::generateFood(objPosArrayList* blockOff)
 {
-    for (int i = 0; i < 3; i++)
+    //Clear all contents of the food bucket
+    for (int i = 0; i < MAX_FOOD_CAP; i++)
     {
         foodBucket -> removeTail();
     }
-        
-    for (int i = 0; i < 3; i++)
+
+    //Generate 3 items to be stored in the foodbucket    
+    for (int i = 0; i < MAX_FOOD_CAP; i++)
     {
         int randX, randY;
         bool overlap; // interference with the snake body flag
         do 
         {   
-            
+            //Generate random x and y coordinates for the food
             randX = 1 + rand() % (foodGameMechsRef->getBoardSizeX() - 1);
             randY = 1 + rand() % (foodGameMechsRef->getBoardSizeY() - 1);
 
-            if (i < 2)
+            if (i % 2 == 0)
             {
-                foodPos.setObjPos(randX, randY, 'o'); // Assign coordinates and symbol to the food  
+                // Assign coordinates and symbol to the normal food
+                foodPos.setObjPos(randX, randY, 'o'); 
             }
-            else{
-                foodPos.setObjPos(randX, randY, 'O'); // Assign coordinates and symbol to the food  
+            else
+            {
+                // Assign coordinates and symbol to the special food  
+                foodPos.setObjPos(randX, randY, 'O'); 
             }
             
 
@@ -50,6 +55,7 @@ void Food::generateFood(objPosArrayList* blockOff)
             objPos inBucket;
             overlap = false;
 
+            //Check if random food coords overlap with any segments of the snake body
             for(int j = 0; j < blockOff->getSize(); j++)
             {
                 blockOff->getElement(bodySegment, j);
@@ -59,7 +65,8 @@ void Food::generateFood(objPosArrayList* blockOff)
                     break;
                 }
             }
-
+            
+            //Check if random food coords overlap with any of the previously generated food coords
             for (int k = 0; k < i; k++)
             {
                 blockOff -> getElement(inBucket, k);
@@ -70,10 +77,10 @@ void Food::generateFood(objPosArrayList* blockOff)
                 }
             }
             
-            //MacUILib_printf("x: %c, y: %c \n", randX, randY);
         }while((overlap) || (randX == foodGameMechsRef->getBoardSizeX() - 1) || 
                 (randY == foodGameMechsRef->getBoardSizeY() - 1)); // Exit the loop once suitable coordinates are found
 
+        //Add the food to the bucket
         foodBucket -> insertTail(foodPos);
     }
         

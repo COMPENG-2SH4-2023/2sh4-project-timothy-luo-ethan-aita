@@ -35,21 +35,8 @@ Player::~Player()
 }
 
 //
-bool Player::checkFoodConsumption()//objPos currentHeadPos)
+bool Player::checkFoodConsumption()
 {
-    /*objPos currentFoodPos; 
-    foodRef->getFoodPos(currentFoodPos);
-    objPos currentHeadPos;
-    playerPosList->getHeadElement(currentHeadPos);
-
-    if(currentFoodPos.isPosEqual(&currentHeadPos))
-    {
-        return true;
-    }
-    else
-    {
-        return false;
-    }*/
     objPos currentHeadPos;
     playerPosList -> getHeadElement(currentHeadPos);
 
@@ -70,7 +57,7 @@ bool Player::checkFoodConsumption()//objPos currentHeadPos)
     return false;
 }
 
-bool Player::checkSpecialFoodConsumption()//objPos currentHeadPos)
+bool Player::checkSpecialFoodConsumption()
 {
     objPos currentHeadPos;
     playerPosList -> getHeadElement(currentHeadPos);
@@ -253,7 +240,6 @@ void Player::movePlayer()
     {
         mainGameMechsRef->specialScore();
         foodRef->generateFood(playerPosList);
-        //playerPosList->removeHead();
         playerPosList->removeTail(); 
     }
     else
