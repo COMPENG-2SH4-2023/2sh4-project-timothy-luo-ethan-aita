@@ -50,6 +50,7 @@ char GameMechs::getInput()
     // Returns last keyboard input
     if (MacUILib_hasChar())
     {
+        // Exit if escape key is pressed
         input = MacUILib_getChar();
         if (input == 27)
         {

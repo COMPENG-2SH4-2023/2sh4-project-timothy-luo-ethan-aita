@@ -46,12 +46,13 @@ void Initialize(void)
     MacUILib_init();
     MacUILib_clearScreen();
 
-    // Make game board size with dimensions 30x15
+    // Initialize game board with dimensions 30x15, food, and player array
     myGM = new GameMechs(30, 15);
     myFood = new Food(myGM);
     myPlayer = new Player(myGM, myFood);
     objPosArrayList* playerBody = myPlayer->getPlayerPos();
     
+    // Generate random food coords
     myFood->generateFood(playerBody); 
 }
 
