@@ -16,15 +16,17 @@ class Food
     private:
         objPos foodPos;
         
-        // objPosArrayList* foodBucket;
+        objPosArrayList* foodBucket;
         GameMechs* foodGameMechsRef;
+        //int bucketSize;
 
     public:
         Food(GameMechs* thisGM);
         ~Food();
         //void generateFood(objPos blockOff); //  upgrade
-        void generateFood(objPosArrayList*); // upgrade
+        void generateFood(objPosArrayList* blockOff); // upgrade
         void getFoodPos(objPos &returnPos);
+        objPosArrayList* getFoodBucket();
 };
 
 #endif

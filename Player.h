@@ -25,6 +25,8 @@ class Player
         void movePlayer(); // need more actions in here:
         
         bool checkFoodConsumption();
+        bool checkSpecialFoodConsumption();
+
         //void increasePlayerLength();
         bool checkSelfCollision();
         objPos currentHead;
@@ -40,8 +42,6 @@ class Player
 
         // differentiate lost (with lost message) vs. exit (end game message)
 
-        // bool checkSelfCollision();
-
     private:
         objPosArrayList* playerPosList;   // (done) Upgrade this in iteration 3 to below. 
         Food* foodRef;
@@ -50,8 +50,6 @@ class Player
         // Need a reference to the Main Game Mechanisms
         GameMechs* mainGameMechsRef;
 
-        //Reference to Object Pos Array List:
-        //objPosArrayList* playerPosList;
 };
 
 #endif

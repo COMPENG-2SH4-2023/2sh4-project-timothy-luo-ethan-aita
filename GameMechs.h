@@ -27,6 +27,8 @@ class GameMechs
         int boardSizeX;
         int boardSizeY;
 
+
+
     public:
         GameMechs();
         GameMechs(int boardX, int boardY);
@@ -38,6 +40,7 @@ class GameMechs
 
         int getScore();
         void incrementScore();
+        void specialScore();
 
         char getInput();
         void setInput(char this_input);

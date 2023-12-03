@@ -18,7 +18,7 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
 
     // no heap meber yet b/c haven't used new keyword
     playerPosList = new objPosArrayList[256];
-    playerPosList->insertHead(tempPos);
+    playerPosList-> insertHead(tempPos);
 
 
     // more actions to be included
@@ -33,10 +33,9 @@ Player::~Player()
 }
 
 //
-bool Player::checkFoodConsumption(//objPos currentHeadPos)
-)
+bool Player::checkFoodConsumption()//objPos currentHeadPos)
 {
-    objPos currentFoodPos; 
+    /*objPos currentFoodPos; 
     foodRef->getFoodPos(currentFoodPos);
     objPos currentHeadPos;
     playerPosList->getHeadElement(currentHeadPos);
@@ -48,7 +47,47 @@ bool Player::checkFoodConsumption(//objPos currentHeadPos)
     else
     {
         return false;
+    }*/
+    objPos currentHeadPos;
+    playerPosList -> getHeadElement(currentHeadPos);
+
+    objPosArrayList* foodBucket = foodRef -> getFoodBucket();
+
+    for (int i = 0; i < foodBucket -> getSize(); ++i)
+    {
+        objPos currentFoodPos;
+        foodBucket -> getElement(currentFoodPos, i);
+
+        if (currentFoodPos.getSymbolIfPosEqual(&currentHeadPos) == 'o')
+        {
+            return true;
+            
+        }
     }
+
+    return false;
+}
+
+bool Player::checkSpecialFoodConsumption()//objPos currentHeadPos)
+{
+    objPos currentHeadPos;
+    playerPosList -> getHeadElement(currentHeadPos);
+
+    objPosArrayList* foodBucket = foodRef -> getFoodBucket();
+
+    for (int i = 0; i < foodBucket -> getSize(); ++i)
+    {
+        objPos currentFoodPos;
+        foodBucket -> getElement(currentFoodPos, i);
+
+        if (currentFoodPos.getSymbolIfPosEqual(&currentHeadPos) == 'O')
+        {
+            return true;
+            
+        }
+    }
+
+    return false;
 }
 
 //void Player::increasePlayerLength(){};
@@ -57,11 +96,11 @@ bool Player::checkSelfCollision() // this function returns true if self-collidin
 {
     objPos currentHeadPos;
     objPos bodySegment;
-    playerPosList->getHeadElement(currentHeadPos);
-    if(playerPosList->getSize() != 0){
+    playerPosList-> getHeadElement(currentHeadPos);
+    if(playerPosList -> getSize() != 0){
      for(int i = 1; i < playerPosList->getSize(); i++)
         {
-            playerPosList->getElement(bodySegment, i);
+            playerPosList -> getElement(bodySegment, i);
             if(currentHeadPos.isPosEqual(&bodySegment))
             {
                 return true;
@@ -128,7 +167,7 @@ void Player::movePlayer()
     // PPA3 Finite State Machine logic
 
     objPos currentHead; 
-    playerPosList->getHeadElement(currentHead);
+    playerPosList -> getHeadElement(currentHead);
 
     switch(myDir)
     {
@@ -192,9 +231,14 @@ void Player::movePlayer()
         mainGameMechsRef->incrementScore();
         foodRef->generateFood(playerPosList);
     }
+    else if(checkSpecialFoodConsumption())
+    {
+        mainGameMechsRef->specialScore();
+        foodRef->generateFood(playerPosList);
+        playerPosList->removeHead();
+    }
     else
     {   
-        //playerPosList->insertHead(currentHead)
         playerPosList->removeTail(); // No overlap with food, carry out regular insert + remove
     }  
     }

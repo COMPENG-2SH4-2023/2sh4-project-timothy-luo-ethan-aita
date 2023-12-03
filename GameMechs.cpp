@@ -105,16 +105,14 @@ void GameMechs::clearInput()
 
 void GameMechs::incrementScore()
 {
-    // Increments the score
-    score++;
+    // Increments the score if normal food is eaten
+    score++;  
+}
 
-    // Add different scoring methods
-    /*
-    if ()
-    {
-
-    }...
-    */    
+void GameMechs::specialScore()
+{
+    //Increments the score if special food is eaten
+    score += 10;
 }
 
 
