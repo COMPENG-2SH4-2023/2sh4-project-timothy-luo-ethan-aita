@@ -68,9 +68,8 @@ void RunLogic(void)
 }
 
 void DrawScreen(void)
-{
-    MacUILib_clearScreen();   
-
+{   
+    MacUILib_clearScreen();
     bool drawn, foodDrawn;
 
     objPosArrayList* playerBody = myPlayer -> getPlayerPos();
@@ -144,16 +143,25 @@ void DrawScreen(void)
 
     MacUILib_printf("\n");
 
-    if(myGM->getLoseFlagStatus())
+    if(myGM->getExitFlagStatus() )
     {
-        MacUILib_printf("You lose!\n");
+        MacUILib_clearScreen();
+    }
+
+    if(myGM->getLoseFlagStatus())
+    {   
+        MacUILib_printf("You lose! Your final score is %d.\n", myGM->getScore());
     } 
 
-    if(!myGM->getLoseFlagStatus() && myGM->getExitFlagStatus())
+    if(!myGM->getLoseFlagStatus() && !myPlayer->arrayMaxxed && myGM->getExitFlagStatus())
     {
         MacUILib_printf("Game Ended.\n");
     }
 
+    if(myPlayer->arrayMaxxed && myGM->getExitFlagStatus())
+    {
+        MacUILib_printf("TERMINATION ERROR: Array list has reached maximum capacity.\n");
+    }
 }
 
 //MacUILib_printf("%s\n", myGM->getExitFlagStatus());

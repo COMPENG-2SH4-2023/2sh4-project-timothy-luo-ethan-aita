@@ -16,9 +16,11 @@ Player::Player(GameMechs* thisGMRef, Food* thisFoodRef)
                       mainGameMechsRef -> getBoardSizeY() / 2,
                      '*');
 
-    // no heap meber yet b/c haven't used new keyword
+    // no heap member yet b/c haven't used new keyword
     playerPosList = new objPosArrayList[256];
     playerPosList-> insertHead(tempPos);
+
+    arrayMaxxed = false; 
 
 
     // more actions to be included
@@ -90,11 +92,15 @@ bool Player::checkSpecialFoodConsumption()//objPos currentHeadPos)
     return false;
 }
 
-//void Player::increasePlayerLength(){};
-//
+void Player::increasePlayerLength()
+{
+    playerPosList->insertHead(currentHead);
+}
+
+
 bool Player::checkSelfCollision() // this function returns true if self-colliding
 {
-    objPos currentHeadPos;
+    objPos currentHeadPos; //change to current head for a second
     objPos bodySegment;
     playerPosList-> getHeadElement(currentHeadPos);
     if(playerPosList -> getSize() != 0){
@@ -166,8 +172,7 @@ void Player::movePlayer()
 {
     // PPA3 Finite State Machine logic
 
-    objPos currentHead; 
-    playerPosList -> getHeadElement(currentHead);
+    playerPosList -> getHeadElement(currentHead); // currentHead is in public scope
 
     switch(myDir)
     {
@@ -223,9 +228,22 @@ void Player::movePlayer()
     else{
         
     
-    playerPosList->insertHead(currentHead);
-     // new current head should be inserted to current head of the list
-   
+    //playerPosList->insertHead(currentHead); // 
+    // new current head should be inserted to current head of the list
+    
+    // we end the game with a termination error when it is equal to ARRAY_MAX_CAP b/c if you try increasing the length after this then
+    // we will be going out of the array list bound
+    if(playerPosList->getSize() == ARRAY_MAX_CAP)
+                                                
+    {   
+        mainGameMechsRef->setExitTrue();
+        arrayMaxxed = true;
+    }
+    
+    else
+    {   
+    increasePlayerLength();
+
     if(checkFoodConsumption()) // make take no input 
     {   
         mainGameMechsRef->incrementScore();
@@ -235,15 +253,19 @@ void Player::movePlayer()
     {
         mainGameMechsRef->specialScore();
         foodRef->generateFood(playerPosList);
-        playerPosList->removeHead();
+        //playerPosList->removeHead();
+        playerPosList->removeTail(); 
     }
     else
     {   
         playerPosList->removeTail(); // No overlap with food, carry out regular insert + remove
     }  
+    
     }
+    } 
 
 }
+
 
 
 

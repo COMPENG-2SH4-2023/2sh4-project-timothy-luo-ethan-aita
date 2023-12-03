@@ -27,9 +27,12 @@ class Player
         bool checkFoodConsumption();
         bool checkSpecialFoodConsumption();
 
-        //void increasePlayerLength();
+        void increasePlayerLength(); 
+
         bool checkSelfCollision();
+
         objPos currentHead;
+        bool arrayMaxxed; // if true, this means the array has reached max capacity
 
         // after inserting the head but before removing the tail:
         // - check if new head position collides with food
